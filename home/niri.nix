@@ -13,13 +13,48 @@
       { command = [ "xwayland-satellite" ]; }
     ];
 
-    binds = with config.lib.niri.actions; {
+    binds = {
       # core
-      "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
-      "Mod+Q".action = close-window;
-      "Mod+Shift+E".action = quit;
+      "Mod+Shift+Slash".action.show-hotkey-overlay = { };
+      "Mod+Q".action.close-window = { };
+      "Mod+Shift+E".action.quit = { };
+
+      # window
+      "Mod+H".action.focus-column-left = { };
+      "Mod+J".action.focus-window-down = { };
+      "Mod+K".action.focus-window-up = { };
+      "Mod+L".action.focus-column-right = { };
+
+      "Mod+Shift+H".action.move-column-left = { };
+      "Mod+Shift+J".action.move-window-down = { };
+      "Mod+Shift+K".action.move-window-up = { };
+      "Mod+Shift+L".action.move-column-right = { };
+
+      "Mod+R".action.switch-preset-column-width = { };
+      "Mod+Shift+R".action.reset-window-height = { };
+      "Mod+C".action.center-column = { };
+      "Mod+F".action.maximize-column = { };
+      "Mod+Shift+F".action.fullscreen-window = { };
+
+      "Mod+Comma".action.consume-window-into-column = { };
+      "Mod+Period".action.expel-window-from-column = { };
+      "Mod+BracketLeft".action.consume-or-expel-window-left = { };
+      "Mod+BracketRight".action.consume-or-expel-window-right = { };
+
+      "Mod+Minus".action.set-column-width = "-10%";
+      "Mod+Equal".action.set-column-width = "+10%";
+      "Mod+Shift+Minus".action.set-window-height = "-10%";
+      "Mod+Shift+Equal".action.set-window-height = "+10%";
+
+      "Mod+Shift+V".action.toggle-window-floating = { };
+      "Mod+V".action.switch-focus-between-floating-and-tiling = { };
 
       # workspace
+      "Mod+U".action.focus-workspace-down = { };
+      "Mod+I".action.focus-workspace-up = { };
+      "Mod+Shift+U".action.move-column-to-workspace-down = { };
+      "Mod+Shift+I".action.move-column-to-workspace-up = { };
+
       "Mod+1".action.focus-workspace = 1;
       "Mod+2".action.focus-workspace = 2;
       "Mod+3".action.focus-workspace = 3;
@@ -41,13 +76,12 @@
       "Mod+Ctrl+9".action.move-column-to-workspace = 9;
       "Mod+Ctrl+0".action.move-column-to-workspace = 10;
 
-      # window
-      "Mod+F".action = maximize-column;
-      "Mod+Shift+F".action = fullscreen-window;
+      # overview
+      "Mod+Slash".action.toggle-overview = { };
 
       # spawn
-      "Mod+Return".action = spawn "foot";
-      "Mod+Space".action = spawn "fuzzel";
+      "Mod+Return".action.spawn = "foot";
+      "Mod+Space".action.spawn = "fuzzel";
     };
   };
 }
