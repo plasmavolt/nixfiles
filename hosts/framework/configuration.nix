@@ -34,6 +34,14 @@
     initialPassword = "changeme";
   };
 
+  # audio (pipewire)
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   # zram
   zramSwap.enable = true;
 
@@ -49,8 +57,35 @@
   # unfree (firmware, etc.)
   nixpkgs.config.allowUnfree = true;
 
+  # wm (niri)
+  programs.niri.enable = true;
+
+  # login manager
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        user = "greeter";
+      };
+    };
+  };
+
+  # x11 compatibility
+  programs.xwayland.enable = true;
+
+  # fonts
+  fonts.packages = with pkgs; [
+    inter-nerdfont
+    nerd-fonts.commit-mono
+  ];
+
   # system packages
   environment.systemPackages = with pkgs; [
+    wl-clipboard
+    xwayland-satellite
+    brightnessctl
+    cliphist
     nixfmt
     just
     vim
