@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./niri.nix
+  ];
+
   home.username = "frank";
   home.homeDirectory = "/home/frank";
   home.stateVersion = "26.05";
@@ -42,7 +46,7 @@
     settings = {
       main = {
         font = "monospace:size=12";
-	pad = "8x8";
+        pad = "8x8";
       };
     };
   };
