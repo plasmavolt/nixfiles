@@ -29,5 +29,6 @@
     fd
     bat
     fzf
+    eza
   ];
 }

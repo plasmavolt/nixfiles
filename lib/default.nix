@@ -1,7 +1,12 @@
 { inputs }:
 
 let
-  inherit (inputs) nixpkgs home-manager niri;
+  inherit (inputs)
+    nixpkgs
+    home-manager
+    niri
+    stylix
+    ;
 in
 {
   mkHost =
@@ -17,6 +22,7 @@ in
         ../hosts/${hostname}
         ../modules/nixos
         niri.nixosModules.niri
+        stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

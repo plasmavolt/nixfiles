@@ -20,25 +20,25 @@
 
     enableDefaultPackages = false;
 
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [
-          "EB Garamond"
-          "Source Han Serif"
-          "Twitter Color Emoji"
-        ];
-        sansSerif = [
-          "Inter"
-          "Source Han Sans"
-          "Twitter Color Emoji"
-        ];
-        monospace = [
-          "CommitMono Nerd Font"
-          "Twitter Color Emoji"
-        ];
-        emoji = [ "Twitter Color Emoji" ];
-      };
-    };
+    # fontconfig = {
+    #   enable = true;
+    #   defaultFonts = {
+    #     serif = [
+    #       "EB Garamond"
+    #       "Source Han Serif"
+    #       "Twitter Color Emoji"
+    #     ];
+    #     sansSerif = [
+    #       "Inter"
+    #       "Source Han Sans"
+    #       "Twitter Color Emoji"
+    #     ];
+    #     monospace = [
+    #       "CommitMono Nerd Font"
+    #       "Twitter Color Emoji"
+    #     ];
+    #     emoji = [ "Twitter Color Emoji" ];
+    #   };
+    # };
   };
 }
