@@ -5,7 +5,7 @@
     ./shell.nix
     ./terminal.nix
     ./editor.nix
-    ./niri.nix
+    ./niri/default.nix
   ];
 
   home.username = "frank";
