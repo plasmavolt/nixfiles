@@ -18,29 +18,15 @@
     {
       self,
       nixpkgs,
-      nixos-hardware,
-      home-manager,
-      niri,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
+      frankLib = import ./lib { inherit inputs; };
     in
     {
-      nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/framework
-          niri.nixosModules.niri
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.frank = import ./home/frank.nix;
-          }
-        ];
+      nixosConfigurations = {
+        framework = frankLib.mkHost { hostname = "framework"; system = system; };
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
     };

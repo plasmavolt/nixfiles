@@ -7,7 +7,7 @@ switch:
 	cd {{justfile_directory()}} && sudo nixos-rebuild switch --flake .#{{hostname}}
 
 build:
-	cd {{justfile_directory()}} && nixos-rebuild build --flake #{{hostname}}
+	cd {{justfile_directory()}} && nixos-rebuild build --flake .#{{hostname}}
 
 update:
 	cd {{justfile_directory()}} && nix flake update
