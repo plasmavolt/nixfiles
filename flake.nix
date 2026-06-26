@@ -26,7 +26,10 @@
     in
     {
       nixosConfigurations = {
-        framework = frankLib.mkHost { hostname = "framework"; system = system; };
+        framework = frankLib.mkHost {
+          hostname = "framework";
+          system = system;
+        };
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
     };
