@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, hostname, ... }:
 
 {
   programs.niri.settings = {
@@ -13,7 +13,7 @@
       };
     };
 
-    outputs."eDP-1".scale = 1.5;
+    outputs."eDP-1".scale = lib.mkIf (hostname == "framework") 1.5;
 
     spawn-at-startup = [
       { command = [ "xwayland-satellite" ]; }
