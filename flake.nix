@@ -16,10 +16,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      # inputs.nixpkgs.follows = "nixpkgs"; # don't follow nixpkgs; use binary cache
-    };
   };
 
   outputs =

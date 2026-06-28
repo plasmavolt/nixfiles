@@ -56,9 +56,6 @@
 
     spawn-at-startup = [
       { command = [ "xwayland-satellite" ]; }
-      { command = [ "noctalia" ]; }
     ];
-
-    # todo: add "honor-xdg-activation-with-invalid-serial"
   };
 }

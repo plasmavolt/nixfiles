@@ -6,7 +6,6 @@
     ./terminal.nix
     ./editor.nix
     ./niri/default.nix
-    ./noctalia.nix
   ];
 
   home.username = "frank";
