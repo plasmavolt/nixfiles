@@ -5,6 +5,8 @@
     ./binds.nix
   ];
   programs.niri.settings = {
+    prefer-no-csd = true; # no title bars
+
     input = {
       touchpad = {
         tap = true;
