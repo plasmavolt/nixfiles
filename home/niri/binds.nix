@@ -24,8 +24,6 @@
     "Mod+F".action.maximize-column = { };
     "Mod+Shift+F".action.fullscreen-window = { };
 
-    "Mod+Comma".action.consume-window-into-column = { };
-    "Mod+Period".action.expel-window-from-column = { };
     "Mod+BracketLeft".action.consume-or-expel-window-left = { };
     "Mod+BracketRight".action.consume-or-expel-window-right = { };
 
@@ -69,7 +67,6 @@
 
     # spawn
     "Mod+Return".action.spawn = "foot";
-    "Mod+Space".action.spawn = "fuzzel";
 
     # audio
     "XF86AudioRaiseVolume" = {
@@ -109,5 +106,23 @@
       ];
     };
 
+    # ----- NOCTALIA BINDS ----- #
+    "Mod+Space".action.spawn = [
+      "noctalia"
+      "msg"
+      "panel-toggle"
+      "launcher"
+    ];
+    "Mod+S".action.spawn = [
+      "noctalia"
+      "msg"
+      "panel-toggle"
+      "control-center"
+    ];
+    "Mod+Comma".action.spawn = [
+      "noctalia"
+      "msg"
+      "settings-toggle"
+    ];
   };
 }
