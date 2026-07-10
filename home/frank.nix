@@ -6,6 +6,7 @@
     ./terminal.nix
     ./editor.nix
     ./niri/default.nix
+    ./bar.nix
   ];
 
   home.username = "frank";
