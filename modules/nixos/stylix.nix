@@ -2,6 +2,7 @@
 
 {
   stylix.enable = true;
+  stylix.image = ./assets/bg.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-dragon.yaml";
   stylix.fonts = {
     serif = {

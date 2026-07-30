@@ -35,5 +35,10 @@
     brightnessctl
     cliphist
     xwayland-satellite
+    libnotify
   ];
+
+  # udev rules for brightnessctl
+  services.udev.packages = [ pkgs.brightnessctl ];
+  users.users.frank.extraGroups = [ "video" ];
 }

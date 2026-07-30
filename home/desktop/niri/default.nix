@@ -1,9 +1,12 @@
-{ lib, hostname, ... }:
+{ lib, config, pkgs, hostname, ... }:
 
 {
   imports = [
     ./binds.nix
+    ./lock.nix
   ];
+
+  home.packages = [ pkgs.swaybg ];
   programs.niri.settings = {
     prefer-no-csd = true; # no title bars
 
@@ -46,6 +49,15 @@
 
     spawn-at-startup = [
       { command = [ "xwayland-satellite" ]; }
+      {
+        command = [
+          "swaybg"
+          "-i"
+          "${config.stylix.image}"
+          "-m"
+          "fill"
+        ];
+      }
     ];
   };
 }
