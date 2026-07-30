@@ -15,7 +15,6 @@
         margin-top = 8;
         margin-left = 8;
         margin-right = 8;
-        border-radius = 8;
         modules-left = [
           "niri/workspaces"
           "niri/window"
@@ -38,15 +37,23 @@
       };
     };
     style = with config.lib.stylix.colors; ''
-            window#waybar {
-              background: alpha(#${base01}, 0.9);
-            }
-            #battery.warning { color: #${base09}; }
-            #battery.critical { color: #${base08}; }
-            #workspaces button.focused {
-              background: #${base0D};
-      	color: #${base00};
-            }
+      window#waybar {
+        background: alpha(#${base01}, 0.9);
+        border-radius: 8px;
+      }
+
+      #battery.warning {
+        color: #${base09};
+      }
+
+      #battery.critical {
+        color: #${base08};
+      }
+
+      #workspaces button.focused {
+        background: #${base0D};
+        color: #${base00};
+      }
     '';
   };
 }

@@ -42,16 +42,6 @@
           };
         clip-to-geometry = true;
       }
-      {
-        matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
-        open-floating = true;
-        default-column-width = {
-          fixed = 1080;
-        };
-        default-window-height = {
-          fixed = 920;
-        };
-      }
     ];
 
     spawn-at-startup = [

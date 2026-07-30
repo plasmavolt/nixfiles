@@ -67,6 +67,7 @@
 
     # spawn
     "Mod+Return".action.spawn = "foot";
+    "Mod+Space".action.spawn = "fuzzel";
 
     # audio
     "XF86AudioRaiseVolume" = {
@@ -105,24 +106,5 @@
         "toggle"
       ];
     };
-
-    # ----- NOCTALIA BINDS ----- #
-    "Mod+Space".action.spawn = [
-      "noctalia"
-      "msg"
-      "panel-toggle"
-      "launcher"
-    ];
-    "Mod+S".action.spawn = [
-      "noctalia"
-      "msg"
-      "panel-toggle"
-      "control-center"
-    ];
-    "Mod+Comma".action.spawn = [
-      "noctalia"
-      "msg"
-      "settings-toggle"
-    ];
   };
 }

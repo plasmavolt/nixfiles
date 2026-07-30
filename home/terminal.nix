@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.foot = {
@@ -9,8 +9,4 @@
       };
     };
   };
-
-  home.packages = with pkgs; [
-    foot
-  ];
 }
