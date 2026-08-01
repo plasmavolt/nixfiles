@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   stylix.opacity.terminal = 0.9;
@@ -8,6 +8,7 @@
     settings = {
       main = {
         pad = "8x8";
+        shell = "${pkgs.fish}/bin/fish";
       };
     };
   };

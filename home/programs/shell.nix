@@ -10,11 +10,9 @@
     };
   };
 
-  programs.zsh = {
+  programs.fish = {
 
     enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
 
     shellAliases = {
       ls = "eza --icons";
@@ -30,5 +28,6 @@
     bat
     fzf
     eza
+    zoxide
   ];
 }
