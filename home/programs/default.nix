@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./browser.nix
+    ./qutebrowser
     ./editor.nix
     ./terminal.nix
     ./shell.nix
