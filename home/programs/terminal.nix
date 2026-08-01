@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  stylix.opacity.terminal = 0.9;
+  stylix.opacity.terminal = 0.96;
 
   programs.foot = {
     enable = true;
