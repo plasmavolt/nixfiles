@@ -19,6 +19,14 @@
       ll = "eza -la --icons";
       cat = "bat";
     };
+
+    plugins = [
+      { name = "done"; src = pkgs.fishPlugins.done.src; }
+      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      { name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
+      { name = "pure"; src = pkgs.fishPlugins.pure.src; }
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+    ];
   };
 
   # shell packages
@@ -29,5 +37,6 @@
     fzf
     eza
     zoxide
+    grc
   ];
 }
