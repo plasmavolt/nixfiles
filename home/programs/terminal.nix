@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  stylix.opacity.terminal = 0.9;
+
   programs.foot = {
     enable = true;
     settings = {
