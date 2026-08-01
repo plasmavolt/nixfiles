@@ -27,6 +27,7 @@ in
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "hm-bak";
           home-manager.extraSpecialArgs = { inherit inputs hostname; };
           home-manager.users.frank = import ../home/frank.nix;
         }
