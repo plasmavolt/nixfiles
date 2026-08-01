@@ -56,7 +56,7 @@
     };
     style = with config.lib.stylix.colors; ''
       window#waybar {
-        background: alpha(#${base01}, 0.9);
+        background: alpha(#${base00}, 0.9);
         border-radius: 8px;
       }
 
