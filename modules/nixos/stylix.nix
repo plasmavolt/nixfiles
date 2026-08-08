@@ -2,13 +2,19 @@
 
 {
   stylix.enable = true;
-  stylix.image = ./assets/bg.png;
+  stylix.image = ./assets/bg2.jpg;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-dragon.yaml";
   stylix.polarity = "dark";
+  stylix.opacity = {
+    applications = 0.84;
+    desktop = 0.84;
+    popups = 0.84;
+    terminal = 0.84;
+  };
   stylix.fonts = {
     serif = {
-      package = pkgs.eb-garamond;
-      name = "EB Garamond";
+      package = pkgs.crimson;
+      name = "Crimson";
     };
 
     sansSerif = {
@@ -17,8 +23,8 @@
     };
 
     monospace = {
-      package = pkgs.nerd-fonts.commit-mono;
-      name = "CommitMono Nerd Font";
+      package = pkgs.nerd-fonts.iosevka-term;
+      name = "Iosevka Nerd Font";
     };
 
     emoji = {

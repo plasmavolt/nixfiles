@@ -18,12 +18,13 @@ let
     base0B # green
     ;
 
-  # translucence as alpha prefix
-  translucent = "#F5${base00}";
+  # D6 = 214 = 0.84 * 255
+  translucent = "#D6${base00}";
+  translucentAlt = "#D6${base01}";
 
   border = "#${base03}";
   accent = "#${base0B}";
-  selected = "#${base0A}";
+  selected = "#D6${base0A}";
 
   uiFontSize = "11pt";
 
@@ -129,9 +130,9 @@ in
       colors.statusbar.normal.fg = lib.mkForce "#${base04}";
 
       # mode indicators
-      colors.statusbar.insert.bg = lib.mkForce "#${base01}";
+      colors.statusbar.insert.bg = lib.mkForce translucentAlt;
       colors.statusbar.insert.fg = lib.mkForce "#${base0B}";
-      colors.statusbar.passthrough.bg = lib.mkForce "#${base01}";
+      colors.statusbar.passthrough.bg = lib.mkForce translucentAlt;
       colors.statusbar.passthrough.fg = lib.mkForce "#${base0C}";
       statusbar.widgets = [
         "keypress"

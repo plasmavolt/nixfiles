@@ -18,8 +18,9 @@
 
     input = {
       touchpad = {
-        tap = true;
+        tap = false;
         natural-scroll = true;
+        scroll-factor = 0.5;
       };
       keyboard = {
         repeat-delay = 225;
@@ -50,6 +51,31 @@
             bottom-right = radius;
           };
         clip-to-geometry = true;
+        background-effect = {
+          blur = true;
+        };
+        popups = {
+          background-effect = {
+            blur = true;
+          };
+        };
+      }
+      {
+        matches = [ { app-id = "foot"; } ];
+        scroll-factor = 2.0;
+      }
+    ];
+
+    layer-rules = [
+      {
+        background-effect = {
+          blur = true;
+        };
+        popups = {
+          background-effect = {
+            blur = true;
+          };
+        };
       }
     ];
 

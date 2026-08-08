@@ -24,13 +24,20 @@ in
         niri.nixosModules.niri
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "hm-bak";
-          home-manager.extraSpecialArgs = { inherit inputs hostname; };
-          home-manager.users.frank = import ../home/frank.nix;
-        }
+        (
+          { pkgs, ... }:
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            # keep backup when .hm-bak exists
+            home-manager.backupCommand = pkgs.writeShellScript "home-manager-backup" ''
+              backup="$(${pkgs.coreutils}/bin/mktemp -- "$1.hm-bak.XXXXXX")"
+              ${pkgs.coreutils}/bin/mv -- "$1" "$backup"
+            '';
+            home-manager.extraSpecialArgs = { inherit inputs hostname; };
+            home-manager.users.frank = import ../home/frank.nix;
+          }
+        )
       ]
       ++ extraModules;
     };

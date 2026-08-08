@@ -8,5 +8,8 @@
     ./shell.nix
     ./pi.nix
     ./lazygit.nix
+    ./zellij.nix
+    ./obsidian.nix
+    ./vesktop.nix
   ];
 }

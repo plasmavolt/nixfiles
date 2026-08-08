@@ -5,6 +5,7 @@
     packages = with pkgs; [
       # normal fonts
       inter
+      iosevka
       eb-garamond
       source-han-sans
       source-han-serif
