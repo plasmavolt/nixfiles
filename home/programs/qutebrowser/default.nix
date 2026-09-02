@@ -14,7 +14,6 @@ let
     base03 # muted / borders
     base04 # dim fg
     base0C # aqua
-    base0A # yellow
     base0B # green
     ;
 
@@ -24,74 +23,34 @@ let
 
   border = "#${base03}";
   accent = "#${base0B}";
-  selected = "#D6${base0A}";
-
   uiFontSize = "11pt";
-
-  tabPosition = "left";
-  tabEdge =
-    {
-      left = "border-right";
-      right = "border-left";
-      top = "border-bottom";
-      bottom = "border-top";
-    }
-    .${tabPosition};
 
   sep = "text: │ ";
 
-  # links on start page + quicklinks
-  links = {
-    dev = {
-      github = "https://github.com";
-      nixpkgs = "https://github.com/NixOS/nixpkgs";
-      noogle = "https://noogle.dev";
-    };
-    read = {
-      wikipedia = "https://wikipedia.org";
-      lobsters = "https://lobste.rs";
-      hackernews = "https://news.ycombinator.com";
-    };
-    media = {
-      youtube = "https://youtube.com";
-      substack = "https://substack.com";
-      reddit = "https://reddit.com";
-    };
-  };
-
-  mkEntry = name: url: ''<li><span class="idx">-</span> <a href="${url}">${name}</a></li>'';
-
-  mkSection = category: entries: ''
-    <fieldset class="box">
-      <legend>${category}</legend>
-      <ul>
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList mkEntry entries)}
-      </ul>
-    </fieldset>'';
+  quotes = lib.filter (line: line != "" && !lib.hasPrefix "#" line) (
+    lib.splitString "\n" (builtins.readFile ./files/quotes.txt)
+  );
 
   startPage = pkgs.replaceVars ./files/startpage.html {
     inherit (config.lib.stylix.colors)
       base00
-      base03
       base04
       base05
       base0B
-      base0D
       ;
     mono = monospace.name;
+    quotes = builtins.toJSON quotes;
     host = "${config.home.username}@${
       if osConfig != null then osConfig.networking.hostName else "nixos"
     }";
-    sections = lib.concatStringsSep "\n" (lib.mapAttrsToList mkSection links);
   };
 
   # experimental: 1px borders on Qt chrome
   chromeBorders = pkgs.replaceVars ./files/chrome.py {
-    inherit border accent tabEdge;
+    inherit border accent;
   };
 
   extraConfig = ''
-    c.tabs.padding = {"top": 4, "bottom": 4, "left": 8, "right": 6}
     c.statusbar.padding = {"top": 4, "bottom": 4, "left": 8, "right": 8}
     c.hints.padding = {"top": 2, "bottom": 2, "left": 4, "right": 4}
 
@@ -108,22 +67,9 @@ in
       fonts.default_size = lib.mkForce uiFontSize;
       fonts.hints = "10pt ${monospace.name}";
 
-      # sidebar tabs
-      tabs.position = tabPosition;
-      tabs.favicons.show = "never";
-      tabs.indicator.width = 0; # disable indicator
-      tabs.title.format = "{audio}{index} │ {current_title}";
-      tabs.title.format_pinned = "{index} ";
-
-      # focused tab
-      colors.tabs.selected.even.bg = lib.mkForce selected;
-      colors.tabs.selected.odd.bg = lib.mkForce selected;
-      colors.tabs.selected.even.fg = lib.mkForce "#${base00}";
-      colors.tabs.selected.odd.fg = lib.mkForce "#${base00}";
-      colors.tabs.pinned.selected.even.bg = lib.mkForce selected;
-      colors.tabs.pinned.selected.odd.bg = lib.mkForce selected;
-      colors.tabs.pinned.selected.even.fg = lib.mkForce "#${base00}";
-      colors.tabs.pinned.selected.odd.fg = lib.mkForce "#${base00}";
+      # Let niri manage browser pages as windows.
+      tabs.show = "never";
+      tabs.tabs_are_windows = true;
 
       # statusline
       fonts.statusbar = lib.mkForce "11pt ${monospace.name}";
@@ -143,7 +89,6 @@ in
         sep
         "history"
         "text: "
-        "tabs"
         sep
         "clock:%H:%M"
         "progress"
@@ -168,11 +113,8 @@ in
       window.title_format = "{perc}{current_title}";
       window.hide_decoration = true;
       window.transparent = true;
-      colors.tabs.bar.bg = lib.mkForce translucent;
       colors.hints.bg = lib.mkForce translucent;
     };
-
-    quickmarks = lib.foldl' (acc: c: acc // c) { } (lib.attrValues links);
 
     inherit extraConfig;
   };

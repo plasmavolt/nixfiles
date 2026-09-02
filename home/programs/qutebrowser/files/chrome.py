@@ -16,20 +16,8 @@ try:
     from qutebrowser.browser import downloadview as _tf_downloadview
     from qutebrowser.completion import completionwidget as _tf_completion
     from qutebrowser.mainwindow import prompt as _tf_prompt
-    from qutebrowser.mainwindow import tabwidget as _tf_tabwidget
     from qutebrowser.mainwindow.statusbar import bar as _tf_bar
     from qutebrowser.misc import keyhintwidget as _tf_keyhint
-
-    # tab sidebar
-    _tf_append(
-        _tf_tabwidget.TabBar,
-        """
-        TabBar {
-            @tabEdge@: 1px solid %(border)s;
-        }
-        """
-        % {"border": _TF_BORDER},
-    )
 
     # statusline
     _tf_append(

@@ -6,16 +6,10 @@
     <style>
       :root {
         --bg: #@base00@;
-        --border: #@base03@;
         --muted: #@base04@;
         --fg: #@base05@;
         --accent: #@base0B@;
-        --alt: #@base0D@;
         --mono: "@mono@", monospace;
-      }
-
-      * {
-        box-sizing: border-box;
       }
 
       html,
@@ -25,140 +19,73 @@
       }
 
       body {
+        display: grid;
+        place-content: center;
+        gap: 0.5rem;
         background: var(--bg);
         color: var(--fg);
         font-family: var(--mono);
-        font-size: 16px;
-        line-height: 1.5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1.25rem;
-        padding: 2rem;
+        text-align: center;
       }
 
-      .box {
-        border: 1px solid var(--border);
-        border-radius: 0;
-        padding: 0.35rem 1rem 0.8rem;
-        margin: 0;
-        min-width: 15rem;
+      #clock,
+      #date {
+        width: 11rem;
       }
 
-      .box > legend {
-        padding: 0 0.5rem;
+      #clock {
+        font-size: 3rem;
+        line-height: 1.1;
+      }
+
+      #date {
         color: var(--accent);
-        font-size: 0.85em;
+        font-size: 1rem;
         letter-spacing: 0.08em;
         text-transform: lowercase;
       }
 
-      header {
-        text-align: center;
-      }
-
-      header pre {
-        margin: 0;
-        color: var(--accent);
-        font-size: 0.9em;
-      }
-
-      #clock {
-        font-size: 2.8rem;
-        line-height: 1.1;
-        color: var(--fg);
-      }
-
-      #date {
+      #quote {
+        max-width: 32rem;
         color: var(--muted);
-        font-size: 0.85em;
-        letter-spacing: 0.08em;
-      }
-
-      .cols {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.25rem;
-        justify-content: center;
-        align-items: flex-start;
-      }
-
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      li {
-        white-space: nowrap;
-      }
-
-      li .idx {
-        color: var(--border);
-        user-select: none;
-      }
-
-      a {
-        color: var(--fg);
-        text-decoration: none;
-      }
-
-      a:hover,
-      a:focus-visible {
-        color: var(--accent);
-        outline: none;
-      }
-
-      a:hover::after {
-        content: " ";
-        color: var(--accent);
-      }
-
-      footer {
-        color: var(--muted);
-        font-size: 0.8em;
-        letter-spacing: 0.05em;
-      }
-
-      footer b {
-        color: var(--alt);
-        font-weight: normal;
+        font-size: 0.9rem;
       }
     </style>
   </head>
 
   <body>
-    <header>
-      <div id="clock">--:--</div>
-      <div id="date">@host@</div>
-    </header>
-
-    <div class="cols">
-      @sections@
-    </div>
-
-    <footer>
-      <b>o</b> open <span>·</span> <b>O</b> open-tab <span>·</span>
-      <b>f</b> hint <span>·</span> <b>b</b> quickmark <span>·</span>
-      <b>:</b> command
-    </footer>
+    <div id="clock">--:--</div>
+    <div id="date"></div>
+    <div id="quote" hidden></div>
 
     <script>
+      const quotes = @quotes@;
+      let quoteIndex = 0;
       const pad = (n) => String(n).padStart(2, "0");
       const tick = () => {
         const d = new Date();
         document.getElementById("clock").textContent =
           pad(d.getHours()) + ":" + pad(d.getMinutes());
-        document.getElementById("date").textContent =
-          d.toLocaleDateString(undefined, {
+        document.getElementById("date").textContent = d
+          .toLocaleDateString(undefined, {
             weekday: "short",
             day: "2-digit",
             month: "short",
-          }).toLowerCase() + "  ·  @host@";
+          })
+          .toLowerCase();
       };
+      const rotateQuote = () => {
+        if (quotes.length === 0) return;
+        const quote = document.getElementById("quote");
+        quote.textContent = quotes[quoteIndex];
+        quote.hidden = false;
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+      };
+
       tick();
+      rotateQuote();
       setInterval(tick, 1000);
+      setInterval(rotateQuote, 15_000);
     </script>
   </body>
 </html>

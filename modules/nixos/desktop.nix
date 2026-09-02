@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  hardware.graphics.enable = true;
+
   # wm (niri)
   programs.niri.enable = true;
   programs.xwayland.enable = true;
@@ -44,6 +46,8 @@
     brightnessctl
     cliphist
     xwayland-satellite
+    wayland
+    libxkbcommon
     libnotify
   ];
 

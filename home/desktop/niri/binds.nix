@@ -23,6 +23,7 @@
     "Mod+C".action.center-column = { };
     "Mod+F".action.maximize-column = { };
     "Mod+Shift+F".action.fullscreen-window = { };
+    "Mod+W".action.toggle-column-tabbed-display = { };
 
     "Mod+BracketLeft".action.consume-or-expel-window-left = { };
     "Mod+BracketRight".action.consume-or-expel-window-right = { };
@@ -68,6 +69,7 @@
     # spawn
     "Mod+Return".action.spawn = "foot";
     "Mod+Space".action.spawn = "fuzzel";
+    "Mod+N".action.spawn = "qutebrowser";
 
     # audio
     "XF86AudioRaiseVolume" = {

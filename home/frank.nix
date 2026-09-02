@@ -3,6 +3,7 @@
 {
   imports = [
     ./desktop
+    ./development.nix
     ./programs
   ];
 
