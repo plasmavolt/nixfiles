@@ -10,6 +10,7 @@
     ./lazygit.nix
     ./zellij.nix
     ./obsidian.nix
+    ./camera.nix
     ./vesktop.nix
   ];
 }
