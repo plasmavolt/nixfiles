@@ -2,7 +2,6 @@
 
 {
   stylix.enable = true;
-  stylix.image = ./assets/bg2.jpg;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-dragon.yaml";
   stylix.polarity = "dark";
   stylix.opacity = {

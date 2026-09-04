@@ -6,5 +6,6 @@
     ./bar.nix
     ./notifs.nix
     ./launcher.nix
+    ./wallpaper.nix
   ];
 }
