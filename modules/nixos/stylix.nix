@@ -17,8 +17,8 @@
     };
 
     sansSerif = {
-      package = pkgs.inter;
-      name = "Inter";
+      package = pkgs.nerd-fonts.iosevka-term;
+      name = "Iosevka Nerd Font";
     };
 
     monospace = {
