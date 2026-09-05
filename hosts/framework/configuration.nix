@@ -16,6 +16,8 @@
   # bluetooth
   hardware.bluetooth.enable = true;
 
+  security.pam.services.hyprlock = { };
+
   # power
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
