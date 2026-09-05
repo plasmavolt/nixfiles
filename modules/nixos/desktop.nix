@@ -29,15 +29,20 @@
   # xdg
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    # both gtk.portal and gnome.portal declare UseIn=gnome, so under niri no
-    # backend is picked and file dialogs (e.g. obsidian's vault picker) fail.
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-termfilechooser
+    ];
+    # explicitly use gtk and gnome backends
     config.niri = {
       default = [
         "gnome"
         "gtk"
       ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      "org.freedesktop.impl.portal.FileChooser" = [
+        "termfilechooser"
+        "gtk"
+      ];
     };
   };
 
