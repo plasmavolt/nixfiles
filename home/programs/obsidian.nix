@@ -37,38 +37,42 @@ in
   programs.obsidian = {
     enable = true;
 
-    vaults."docs/notes" = {
-      enable = true;
-      settings = {
-        appearance = {
-          baseFontSize = lib.mkForce 14;
-          interfaceFontFamily = lib.mkForce "Iosevka Nerd Font";
-          textFontFamily = "Iosevka Nerd Font";
-        };
-        communityPlugins = [
-          vimrcSupport
-          {
-            pkg = smartTypography;
-            settings = {
-              arrows = false;
-              comparisons = false;
-              curlyQuotes = false;
-              ellipsis = false;
-              emDash = true;
-              fractions = false;
-              guillemets = false;
-              skipEnDash = true;
-            };
-          }
-        ];
-      };
+    vaults = {
+      "docs/notes".enable = true;
+      "docs/journal".enable = true;
     };
 
-    defaultSettings.app.vimMode = true;
+    defaultSettings = {
+      app.vimMode = true;
+      appearance = {
+        baseFontSize = lib.mkForce 14;
+        interfaceFontFamily = lib.mkForce "Iosevka Nerd Font";
+        textFontFamily = "Iosevka Nerd Font";
+      };
+      communityPlugins = [
+        vimrcSupport
+        {
+          pkg = smartTypography;
+          settings = {
+            arrows = false;
+            comparisons = false;
+            curlyQuotes = false;
+            ellipsis = false;
+            emDash = true;
+            fractions = false;
+            guillemets = false;
+            skipEnDash = true;
+          };
+        }
+      ];
+      extraFiles.vimrc = {
+        target = "../.obsidian.vimrc";
+        # move up/down visual lines, not literal lines
+        text = ''
+          nmap j gj
+          nmap k gk
+        '';
+      };
+    };
   };
-
-  home.file."docs/notes/.obsidian.vimrc".text = ''
-    nmap j gj
-    nmap k gk
-  '';
 }

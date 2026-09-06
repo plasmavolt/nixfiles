@@ -8,6 +8,14 @@
 {
   services.awww.enable = true;
 
+  systemd.user.services.awww = {
+    Unit = {
+      After = lib.mkForce [ "niri.service" ];
+      PartOf = lib.mkForce [ "niri.service" ];
+    };
+    Install.WantedBy = lib.mkForce [ "niri.service" ];
+  };
+
   home.packages = [ pkgs.waypaper ];
 
   # wallpapers are managed mutably
@@ -35,7 +43,7 @@
       Description = "Restore the Waypaper wallpaper";
       After = [ "awww.service" ];
       Requires = [ "awww.service" ];
-      PartOf = [ config.wayland.systemd.target ];
+      PartOf = [ "niri.service" ];
     };
 
     Service = {
@@ -43,6 +51,6 @@
       ExecStart = "${lib.getExe pkgs.waypaper} --restore";
     };
 
-    Install.WantedBy = [ config.wayland.systemd.target ];
+    Install.WantedBy = [ "niri.service" ];
   };
 }

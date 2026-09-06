@@ -12,6 +12,7 @@
     input = {
       touchpad = {
         tap = false;
+        click-method = "clickfinger";
         natural-scroll = true;
         scroll-factor = 0.5;
       };
@@ -56,6 +57,11 @@
       {
         matches = [ { app-id = "foot"; } ];
         scroll-factor = 2.0;
+      }
+      {
+        matches = [ { app-id = "^yazi-file-chooser$"; } ];
+        open-floating = true;
+        background-effect.blur = true;
       }
     ];
 
