@@ -1,19 +1,14 @@
--- kanagawa dragon
 return {
-  'rebelot/kanagawa.nvim',
+  'RRethy/base16-nvim',
   priority = 1000,
-  opts = {
-    transparent = true,
-    background = {
-      dark = 'dragon',
-      light = 'lotus',
-    },
-  },
-  config = function(_, opts)
-    require('kanagawa').setup(opts)
+  config = function()
+    local palette = vim.json.decode(table.concat(vim.fn.readfile(vim.fn.stdpath 'config' .. '/stylix.json'), '\n'))
+    require('base16-colorscheme').setup(palette)
 
-    local function clear_gutter_bg()
+    local function clear_backgrounds()
       for _, group in ipairs {
+        'Normal',
+        'NormalNC',
         'SignColumn',
         'LineNr',
         'LineNrAbove',
@@ -29,12 +24,11 @@ return {
     end
 
     vim.api.nvim_create_autocmd('ColorScheme', {
-      pattern = 'kanagawa*',
-      group = vim.api.nvim_create_augroup('kanagawa-transparent-gutter', { clear = true }),
-      callback = clear_gutter_bg,
+      pattern = '*',
+      group = vim.api.nvim_create_augroup('stylix-transparent-background', { clear = true }),
+      callback = clear_backgrounds,
     })
 
-    vim.cmd.colorscheme 'kanagawa-dragon'
-    clear_gutter_bg()
+    clear_backgrounds()
   end,
 }

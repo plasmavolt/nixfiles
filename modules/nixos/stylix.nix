@@ -2,13 +2,16 @@
 
 {
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa-dragon.yaml";
+  stylix.base16Scheme = "${pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/gnsfujiwara/base16-mountain-scheme/1a3143f3f0f5bac349b4bfad5cc422dc078e5901/mountain.yaml";
+    hash = "sha256-Q2XjbV3PgclhdE9pDwwLX0w9gNAlbfsaCZwO2tCDPo4=";
+  }}";
   stylix.polarity = "dark";
   stylix.opacity = {
-    applications = 0.84;
-    desktop = 0.84;
-    popups = 0.84;
-    terminal = 0.84;
+    applications = 0.92;
+    desktop = 0.92;
+    popups = 0.92;
+    terminal = 0.92;
   };
   stylix.fonts = {
     serif = {
