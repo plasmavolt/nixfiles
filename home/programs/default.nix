@@ -13,6 +13,7 @@
     ./obsidian.nix
     ./zathura.nix
     ./camera.nix
+    ./lutgen.nix
     ./vesktop.nix
   ];
 }
