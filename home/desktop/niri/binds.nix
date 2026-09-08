@@ -67,7 +67,7 @@
     "Mod+Slash".action.toggle-overview = { };
 
     # spawn
-    "Mod+Return".action.spawn = "foot";
+    "Mod+Return".action.spawn = "footclient";
     "Mod+Space".action.spawn = "fuzzel";
     "Mod+N".action.spawn = "qutebrowser";
 

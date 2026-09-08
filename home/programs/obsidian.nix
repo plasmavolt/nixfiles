@@ -46,8 +46,8 @@ in
       app.vimMode = true;
       appearance = {
         baseFontSize = lib.mkForce 14;
-        interfaceFontFamily = lib.mkForce "Iosevka Nerd Font";
-        textFontFamily = "Iosevka Nerd Font";
+        interfaceFontFamily = lib.mkForce "IosevkaTerm Nerd Font";
+        textFontFamily = "IosevkaTerm Nerd Font";
       };
       communityPlugins = [
         vimrcSupport

@@ -3,8 +3,7 @@
 {
   programs.niri.settings = {
     spawn-at-startup = [ { command = [ (lib.getExe config.services.swaync.package) ]; } ];
-    # Opt out of the global layer blur: the card is opaque and the transparent
-    # padding around it would otherwise show up as a blurred rectangle.
+    # global layer blur shows through transparent padding around card
     layer-rules = lib.mkAfter [
       {
         matches = [ { namespace = "^swaync-notification-window$"; } ];
@@ -23,7 +22,6 @@
       positionY = "top";
       layer = "overlay";
       layer-shell = true;
-      # Keep the surface content-sized, not a full-height screen strip.
       layer-shell-cover-screen = false;
       notification-window-width = 320;
       notification-window-height = 240;
@@ -60,8 +58,6 @@
         box-shadow: none;
       }
 
-      /* SwayNC has no layer-shell margin option for notifications, so this
-         padding is the only way to keep the card off the screen edge and bar. */
       .notification-row .notification-background {
         padding: 8px;
       }

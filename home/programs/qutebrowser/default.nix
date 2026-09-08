@@ -50,6 +50,24 @@ let
     inherit border accent;
   };
 
+  wikipediaRice = pkgs.replaceVars ./files/wikipedia.user.js {
+    inherit (config.lib.stylix.colors)
+      base00
+      base01
+      base02
+      base03
+      base04
+      base05
+      base06
+      base08
+      base0A
+      base0B
+      base0C
+      base0D
+      ;
+    mono = monospace.name;
+  };
+
   extraConfig = ''
     c.statusbar.padding = {"top": 4, "bottom": 4, "left": 8, "right": 8}
     c.hints.padding = {"top": 2, "bottom": 2, "left": 4, "right": 4}
@@ -67,7 +85,7 @@ in
       fonts.default_size = lib.mkForce uiFontSize;
       fonts.hints = "10pt ${monospace.name}";
 
-      # Let niri manage browser pages as windows.
+      # tabs as niri windows
       tabs.show = "never";
       tabs.tabs_are_windows = true;
 
@@ -118,4 +136,6 @@ in
 
     inherit extraConfig;
   };
+
+  xdg.dataFile."qutebrowser/greasemonkey/wikipedia.user.js".source = wikipediaRice;
 }

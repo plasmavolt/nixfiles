@@ -1,9 +1,42 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   colors = config.lib.stylix.colors;
-  # Pango markup so the value reads in accent color while the label stays muted.
   accent = text: "<span color='#${colors.base0D}'>${text}</span>";
+
+  # replacement for waybar network module
+  netSpeed = pkgs.writeShellScript "waybar-net-speed" ''
+    interval=2
+    human() {
+      awk -v b="$1" 'BEGIN {
+        k = b / 1024; m = k / 1024
+        if (m >= 100) printf "%4dM", m
+        else if (m >= 1) printf "%4.1fM", m
+        else if (k >= 100) printf "%4dk", k
+        else printf "%4.1fk", k
+      }'
+    }
+    counters() {
+      awk -v i="$1" '$1 == i ":" { print $2, $10 }' /proc/net/dev
+    }
+    while true; do
+      iface=$(${pkgs.iproute2}/bin/ip -o route show default | awk '{ print $5; exit }')
+      if [ -z "$iface" ]; then
+        printf '{"text":"NET OFF","class":"disconnected","tooltip":"Disconnected"}\n'
+        sleep "$interval"
+        continue
+      fi
+      set -- $(counters "$iface")
+      rx0=$1 tx0=$2
+      sleep "$interval"
+      set -- $(counters "$iface")
+      rx=$(( ($1 - rx0) / interval ))
+      tx=$(( ($2 - tx0) / interval ))
+      if [ -d "/sys/class/net/$iface/wireless" ]; then label=WLAN; else label=LAN; fi
+      printf '{"text":"%s \u2193<span color=\\"#%s\\">%s</span> \u2191<span color=\\"#%s\\">%s</span>","tooltip":"%s"}\n' \
+        "$label" "${colors.base0D}" "$(human "$rx")" "${colors.base0D}" "$(human "$tx")" "$iface"
+    done
+  '';
 in
 {
   programs.waybar = {
@@ -23,7 +56,7 @@ in
         "niri/workspaces"
       ];
       modules-right = [
-        "network"
+        "custom/net"
         "pulseaudio"
         "backlight"
         "battery"
@@ -32,7 +65,6 @@ in
 
       "niri/workspaces" = {
         format = "{icon}";
-        # Waybar's label mapping also accepts ordinary text, not just icons.
         format-icons = {
           "1" = "α";
           "2" = "β";
@@ -79,15 +111,10 @@ in
         on-scroll-down = "brightnessctl set 5%-";
       };
 
-      network = {
-        interval = 5;
-        format-wifi = "WLAN ${accent "{signalStrength:02}%"}";
-        format-ethernet = "LAN";
-        format-linked = "NET LINK";
-        format-disconnected = "NET OFF";
-        tooltip-format = "{ifname}: {ipaddr}/{cidr}\nUP {bandwidthUpBits} / DN {bandwidthDownBits}";
-        tooltip-format-wifi = "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}\nUP {bandwidthUpBits} / DN {bandwidthDownBits}";
-        tooltip-format-disconnected = "Disconnected";
+      "custom/net" = {
+        exec = "${netSpeed}";
+        return-type = "json";
+        markup = true;
       };
 
       cpu = {
@@ -108,10 +135,8 @@ in
           critical = 15;
         };
         format = "BAT ${accent "{capacity:02}%"}";
-        # Plain text in low states so the CSS warning colors apply to the number too.
         format-warning = "BAT {capacity:02}%";
         format-critical = "BAT {capacity:02}%";
-        # One indicator for any plugged-in state; charging vs. full is not interesting.
         format-charging = "AC ${accent "{capacity:02}%"}";
         format-plugged = "AC ${accent "{capacity:02}%"}";
         format-full = "AC ${accent "{capacity:02}%"}";
@@ -173,7 +198,7 @@ in
       #memory,
       #pulseaudio,
       #backlight,
-      #network,
+      #custom-net,
       #battery,
       #clock {
         color: #${base05};
@@ -188,7 +213,7 @@ in
 
       #pulseaudio,
       #backlight,
-      #network,
+      #custom-net,
       #battery,
       #clock {
         border-left: 1px solid #${base02};

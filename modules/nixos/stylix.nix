@@ -21,12 +21,12 @@
 
     sansSerif = {
       package = pkgs.nerd-fonts.iosevka-term;
-      name = "Iosevka Nerd Font";
+      name = "IosevkaTerm Nerd Font";
     };
 
     monospace = {
       package = pkgs.nerd-fonts.iosevka-term;
-      name = "Iosevka Nerd Font";
+      name = "IosevkaTerm Nerd Font";
     };
 
     emoji = {

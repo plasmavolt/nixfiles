@@ -5,13 +5,11 @@ let
   opacity = lib.toHexString (builtins.ceil (config.stylix.opacity.popups * 255));
 in
 {
-  # app launcher, styled as a palette tucked under the top-left of the bar:
-  # text only, flat, same typography and border language as waybar/swaync
   programs.fuzzel = {
     enable = true;
     settings = {
       main = {
-        terminal = "foot";
+        terminal = "footclient";
         layer = "overlay";
         font = lib.mkForce "${config.stylix.fonts.monospace.name}:size=11";
 
@@ -59,7 +57,6 @@ in
   programs.niri.settings.layer-rules = lib.mkAfter [
     {
       matches = [ { namespace = "^launcher$"; } ];
-      # Clip blur to the rounded shape; must match [border].radius above.
       geometry-corner-radius = {
         top-left = 10.0;
         top-right = 10.0;

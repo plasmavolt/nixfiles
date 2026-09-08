@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.foot = {
@@ -10,4 +10,13 @@
       };
     };
   };
+
+  programs.niri.settings.spawn-at-startup = [
+    {
+      command = [
+        "${config.programs.foot.package}/bin/foot"
+        "--server"
+      ];
+    }
+  ];
 }

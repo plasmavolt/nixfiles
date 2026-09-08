@@ -77,7 +77,5 @@
         };
       }
     ];
-
-    spawn-at-startup = [ { command = [ "xwayland-satellite" ]; } ];
   };
 }
