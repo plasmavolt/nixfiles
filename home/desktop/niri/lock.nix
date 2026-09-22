@@ -6,7 +6,7 @@ let
     base03
     base05
     base08
-    base0B
+    base0D
     ;
   font = config.stylix.fonts.monospace.name;
 in
@@ -85,7 +85,7 @@ in
         {
           monitor = "";
           text = "cmd[update:60000] date '+%a, %b %d' | tr '[:upper:]' '[:lower:]'";
-          color = "rgb(${base0B})";
+          color = "rgb(${base0D})";
           font_size = 16;
           font_family = font;
           position = "0, 20";

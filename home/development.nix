@@ -24,7 +24,18 @@
     prettier
     rustfmt
     elan
+    ocaml
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.ocamlformat
+    racket
+    texlive.combined.scheme-medium
   ];
+
+  home.activation.installRacketLangserver = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if ! ${pkgs.racket}/bin/raco pkg show --all | grep -qE '^ racket-langserver([[:space:]]|$)'; then
+      run ${pkgs.racket}/bin/raco pkg install --auto racket-langserver
+    fi
+  '';
 
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.alsa-lib.dev}/lib/pkgconfig";

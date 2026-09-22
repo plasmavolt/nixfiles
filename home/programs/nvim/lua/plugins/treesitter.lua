@@ -20,6 +20,7 @@ return {
       -- docs
       'markdown',
       'markdown_inline',
+      'latex',
       'html',
       'lua',
       'luadoc',
@@ -34,6 +35,8 @@ return {
       'typescript',
       'tsx',
       'javascript',
+      'ocaml',
+      'racket',
       -- note: lean manages self
     },
     auto_install = true,

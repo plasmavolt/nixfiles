@@ -117,6 +117,10 @@ return {
         rust_analyzer = {},
         -- c / c++
         clangd = {},
+        -- ocaml
+        ocamllsp = {},
+        -- racket
+        racket_langserver = {},
       }
 
       for name, opts in pairs(servers) do

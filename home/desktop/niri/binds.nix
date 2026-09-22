@@ -66,6 +66,9 @@
     # overview
     "Mod+Slash".action.toggle-overview = { };
 
+    # screenshot
+    "Mod+Shift+S".action.screenshot = { };
+
     # spawn
     "Mod+Return".action.spawn = "footclient";
     "Mod+Space".action.spawn = "fuzzel";

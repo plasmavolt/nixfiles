@@ -14,7 +14,7 @@ let
     base03 # muted / borders
     base04 # dim fg
     base0C # aqua
-    base0B # green
+    base0D # blue / accent
     ;
 
   # D6 = 214 = 0.84 * 255
@@ -22,7 +22,7 @@ let
   translucentAlt = "#D6${base01}";
 
   border = "#${base03}";
-  accent = "#${base0B}";
+  accent = "#${base0D}";
   uiFontSize = "11pt";
 
   sep = "text: │ ";
@@ -36,7 +36,7 @@ let
       base00
       base04
       base05
-      base0B
+      base0D
       ;
     mono = monospace.name;
     quotes = builtins.toJSON quotes;
@@ -61,7 +61,6 @@ let
       base06
       base08
       base0A
-      base0B
       base0C
       base0D
       ;
@@ -95,7 +94,7 @@ in
 
       # mode indicators
       colors.statusbar.insert.bg = lib.mkForce translucentAlt;
-      colors.statusbar.insert.fg = lib.mkForce "#${base0B}";
+      colors.statusbar.insert.fg = lib.mkForce accent;
       colors.statusbar.passthrough.bg = lib.mkForce translucentAlt;
       colors.statusbar.passthrough.fg = lib.mkForce "#${base0C}";
       statusbar.widgets = [

@@ -17,9 +17,8 @@ GM_addStyle(String.raw`
     --rice-bright: #@base06@;
     --rice-red: #@base08@;
     --rice-yellow: #@base0A@;
-    --rice-green: #@base0B@;
     --rice-aqua: #@base0C@;
-    --rice-blue: #@base0D@;
+    --rice-accent: #@base0D@;
     --rice-mono: "@mono@", monospace;
 
     color-scheme: dark !important;
@@ -33,8 +32,8 @@ GM_addStyle(String.raw`
     --color-base: var(--rice-fg) !important;
     --color-subtle: var(--rice-muted) !important;
     --color-emphasized: var(--rice-bright) !important;
-    --color-progressive: var(--rice-aqua) !important;
-    --color-visited: var(--rice-blue) !important;
+    --color-progressive: var(--rice-accent) !important;
+    --color-visited: var(--rice-aqua) !important;
   }
 
   html,
@@ -102,7 +101,7 @@ GM_addStyle(String.raw`
 
   h1::before,
   .mw-heading1 > h1::before {
-    color: var(--rice-green);
+    color: var(--rice-accent);
     content: "# ";
   }
 
@@ -114,18 +113,18 @@ GM_addStyle(String.raw`
 
   a,
   .mw-parser-output a.external {
-    color: var(--rice-aqua) !important;
-    text-decoration-color: color-mix(in srgb, var(--rice-aqua) 35%, transparent) !important;
+    color: var(--rice-accent) !important;
+    text-decoration-color: color-mix(in srgb, var(--rice-accent) 35%, transparent) !important;
     text-underline-offset: 0.18em;
   }
 
   a:visited {
-    color: var(--rice-blue) !important;
+    color: var(--rice-aqua) !important;
   }
 
   a:hover,
   a:focus {
-    color: var(--rice-green) !important;
+    color: var(--rice-accent) !important;
     text-decoration-color: currentColor !important;
   }
 
@@ -142,8 +141,8 @@ GM_addStyle(String.raw`
   }
 
   .vector-toc-list-item-active > .vector-toc-link {
-    border-left: 2px solid var(--rice-green) !important;
-    color: var(--rice-green) !important;
+    border-left: 2px solid var(--rice-accent) !important;
+    color: var(--rice-accent) !important;
     padding-left: 0.55rem !important;
   }
 
@@ -217,7 +216,7 @@ GM_addStyle(String.raw`
   }
 
   blockquote {
-    border-left: 3px solid var(--rice-green) !important;
+    border-left: 3px solid var(--rice-accent) !important;
     color: var(--rice-muted) !important;
     padding: 0.75rem 1rem !important;
   }
@@ -243,8 +242,8 @@ GM_addStyle(String.raw`
   textarea:focus,
   button:focus-visible,
   .cdx-button:focus-visible {
-    border-color: var(--rice-green) !important;
-    box-shadow: 0 0 0 1px var(--rice-green) !important;
+    border-color: var(--rice-accent) !important;
+    box-shadow: 0 0 0 1px var(--rice-accent) !important;
     outline: none !important;
   }
 
@@ -268,7 +267,7 @@ GM_addStyle(String.raw`
   }
 
   ::selection {
-    background: var(--rice-green) !important;
+    background: var(--rice-accent) !important;
     color: var(--rice-bg) !important;
   }
 

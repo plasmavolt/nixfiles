@@ -59,6 +59,11 @@
         scroll-factor = 2.0;
       }
       {
+        matches = [ { app-id = "^org\\.pwmt\\.zathura$"; } ];
+        opacity = 0.92;
+        background-effect.blur = true;
+      }
+      {
         matches = [ { app-id = "^yazi-file-chooser$"; } ];
         open-floating = true;
         background-effect.blur = true;
