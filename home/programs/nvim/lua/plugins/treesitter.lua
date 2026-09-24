@@ -36,7 +36,6 @@ return {
       'tsx',
       'javascript',
       'ocaml',
-      'racket',
       -- note: lean manages self
     },
     auto_install = true,

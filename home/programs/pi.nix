@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.lib.stylix.colors)
@@ -21,6 +26,21 @@ let
     ;
 
   color = value: "#${value}";
+
+  lazypi = pkgs.buildNpmPackage rec {
+    pname = "lazypi";
+    version = "0.6.5";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "robzolkos";
+      repo = "lazypi";
+      rev = "c1365e3855e0672b6db722f6b4b58f20e1d04c76";
+      hash = "sha256-Qkzov2Hl00rqhXEmIu9Ky1bCLyCp3RCw4SdCTlSfY8Q=";
+    };
+
+    npmDepsHash = "sha256-RHoTwnqT1tZ2jrm6EZ20iURO/JhHh1k9Jk6p7jAU0Ms=";
+    dontNpmBuild = true;
+  };
 
   stylixTheme = {
     "$schema" =
@@ -121,6 +141,8 @@ in
     environment.PI_CODING_AGENT_DIR.value = "${config.home.homeDirectory}/.pi/agent";
     settings.theme = "stylix";
   };
+
+  home.packages = [ lazypi ];
 
   home.file.".pi/agent/themes/stylix.json".text = builtins.toJSON stylixTheme;
 }

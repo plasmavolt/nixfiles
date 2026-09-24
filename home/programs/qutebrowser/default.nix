@@ -67,6 +67,23 @@ let
     mono = monospace.name;
   };
 
+  zetamacRice = pkgs.replaceVars ./files/zetamac.user.js {
+    inherit (config.lib.stylix.colors)
+      base00
+      base01
+      base02
+      base03
+      base04
+      base05
+      base06
+      base08
+      base0A
+      base0B
+      base0C
+      base0D
+      ;
+  };
+
   extraConfig = ''
     c.statusbar.padding = {"top": 4, "bottom": 4, "left": 8, "right": 8}
     c.hints.padding = {"top": 2, "bottom": 2, "left": 4, "right": 4}
@@ -137,4 +154,5 @@ in
   };
 
   xdg.dataFile."qutebrowser/greasemonkey/wikipedia.user.js".source = wikipediaRice;
+  xdg.dataFile."qutebrowser/greasemonkey/zetamac.user.js".source = zetamacRice;
 }

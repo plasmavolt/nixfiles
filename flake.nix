@@ -42,9 +42,9 @@
           hostname = "framework";
           system = system;
         };
-	ncase = frankLib.mkHost {
-	  hostname = "ncase";
-	  system = system;
+        ncase = frankLib.mkHost {
+          hostname = "ncase";
+          system = system;
         };
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;

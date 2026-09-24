@@ -9,10 +9,15 @@
   zramSwap.enable = true;
 
   # flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    # If a binary cache (for example Cachix) has a transient 5xx error,
+    # build locally instead of failing the whole rebuild.
+    fallback = true;
+  };
 
   # zsh
   programs.zsh.enable = true;

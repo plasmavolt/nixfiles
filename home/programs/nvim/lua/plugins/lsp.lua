@@ -119,8 +119,6 @@ return {
         clangd = {},
         -- ocaml
         ocamllsp = {},
-        -- racket
-        racket_langserver = {},
       }
 
       for name, opts in pairs(servers) do

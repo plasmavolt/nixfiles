@@ -1,4 +1,9 @@
-{ lib, hostname, ... }:
+{
+  lib,
+  pkgs,
+  hostname,
+  ...
+}:
 
 {
   imports = [
@@ -6,15 +11,26 @@
     ./lock.nix
   ];
 
+  home.packages = [ pkgs.bibata-cursors ];
+
   programs.niri.settings = {
     prefer-no-csd = true; # no title bars
 
+    cursor = {
+      theme = "Bibata-Modern-Classic";
+      size = 18;
+    };
+
     input = {
+      mouse = {
+        accel-profile = "flat";
+      };
       touchpad = {
         tap = false;
         click-method = "clickfinger";
         natural-scroll = true;
-        scroll-factor = 0.5;
+        scroll-factor = lib.mkIf (hostname != "ncase") 0.5;
+        accel-profile = "flat";
       };
       keyboard = {
         repeat-delay = 225;
@@ -23,6 +39,14 @@
     };
 
     outputs."eDP-1".scale = lib.mkIf (hostname == "framework") 1.5;
+    outputs."DP-6" = lib.mkIf (hostname == "ncase") {
+      mode = {
+        width = 2560;
+        height = 1440;
+        refresh = 164.999;
+      };
+      scale = 1.2;
+    };
 
     layout = {
       border = {
@@ -56,7 +80,7 @@
       }
       {
         matches = [ { app-id = "foot"; } ];
-        scroll-factor = 2.0;
+        scroll-factor = lib.mkIf (hostname != "ncase") 2.0;
       }
       {
         matches = [ { app-id = "^org\\.pwmt\\.zathura$"; } ];
