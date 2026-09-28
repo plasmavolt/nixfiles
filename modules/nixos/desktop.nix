@@ -8,6 +8,7 @@
   programs.xwayland.enable = true;
 
   # audio (pipewire)
+  security.rtkit.enable = true; # pipewire realtime scheduling
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -54,6 +55,8 @@
     wayland
     libxkbcommon
     libnotify
+    pavucontrol
+    bluetui
   ];
 
   # udev rules for brightnessctl

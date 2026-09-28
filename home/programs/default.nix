@@ -7,7 +7,7 @@
     ./terminal.nix
     ./shell.nix
     ./pi.nix
-    ./spotatui.nix
+    ./music.nix
     ./lazygit.nix
     ./zellij.nix
     ./obsidian.nix
