@@ -26,50 +26,40 @@ in
       background = [
         {
           monitor = "";
-          path = "screenshot";
+          path = "${config.xdg.stateHome}/waypaper/current-wallpaper";
           blur_passes = 3;
           blur_size = 8;
-          brightness = 0.7;
-          color = "rgba(${base00}66)";
+          brightness = 0.32;
+          color = "rgba(${base00}aa)";
         }
       ];
 
       input-field = [
         {
           monitor = "";
-          size = "360, 52";
+          size = "360, 54";
           outline_thickness = 0;
-          inner_color = "rgba(${base00}00)";
+          inner_color = "rgba(${base00}66)";
           outer_color = "rgba(${base00}00)";
-          check_color = "rgba(${base05}ff)";
+          check_color = "rgba(${base0D}ff)";
           fail_color = "rgba(${base08}ff)";
-          fail_text = "$FAIL";
-          fail_transition = 0;
+          fail_text = "incorrect";
+          fail_transition = 150;
           font_color = "rgb(${base05})";
           font_family = font;
-          placeholder_text = "";
-          rounding = 0;
+          placeholder_text = "password";
+          rounding = 14;
           dots_center = true;
-          dots_size = 0.2;
-          dots_spacing = 0.2;
+          dots_size = 0.18;
+          dots_spacing = 0.18;
           fade_on_empty = false;
-          position = "0, -70";
+          position = "0, -76";
           halign = "center";
           valign = "center";
         }
       ];
 
-      shape = [
-        {
-          monitor = "";
-          size = "360, 1";
-          color = "rgba(${base03}cc)";
-          rounding = 0;
-          position = "0, -96";
-          halign = "center";
-          valign = "center";
-        }
-      ];
+      shape = [ ];
 
       label = [
         {
