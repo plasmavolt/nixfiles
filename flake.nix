@@ -20,6 +20,7 @@
       url = "github:lukasl-dev/pi.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    osu-lazer.url = "github:repinek/osu-lazer-flake";
   };
 
   outputs =
@@ -42,6 +43,10 @@
           hostname = "ncase";
           system = system;
         };
+      };
+      apps.${system}.osu-lazer = {
+        type = "app";
+        program = "${inputs.osu-lazer.packages.${system}.osu-lazer-bin}/bin/osu!";
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
     };

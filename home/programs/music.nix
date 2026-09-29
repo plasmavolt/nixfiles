@@ -16,21 +16,19 @@ let
 in
 {
   home.packages = with pkgs; [
+    cava
     ffmpeg
+    lrcget
     yt-dlp-latest
     (python3.withPackages (pythonPackages: [ pythonPackages.mutagen ]))
   ];
 
   programs.rmpc = {
     enable = true;
-    config = ''
-      #![enable(implicit_some)]
-      (
-        address: "${mpdSocket}",
-        cache_dir: "${youtubeCache}",
-      )
-    '';
+    config = "";
   };
+
+  xdg.configFile."rmpc/config.ron".source = ./rmpc.ron;
 
   services.mpd = {
     enable = true;
