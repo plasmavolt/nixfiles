@@ -31,7 +31,7 @@ in
             home-manager.useUserPackages = true;
             # keep backup when .hm-bak exists
             home-manager.backupCommand = pkgs.writeShellScript "home-manager-backup" ''
-              backup="$(${pkgs.coreutils}/bin/mktemp -- "$1.hm-bak.XXXXXX")"
+              backup="$(${pkgs.coreutils}/bin/mktemp -u -- "$1.hm-bak.XXXXXX")"
               ${pkgs.coreutils}/bin/mv -- "$1" "$backup"
             '';
             home-manager.extraSpecialArgs = { inherit inputs hostname; };

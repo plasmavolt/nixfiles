@@ -69,6 +69,13 @@
     # screenshot
     "Mod+Shift+S".action.screenshot = { };
 
+    # color picker -> clipboard
+    "Mod+Shift+C".action.spawn = [
+      "sh"
+      "-c"
+      "c=$(niri msg pick-color | sed -n 's/^Hex: //p') && [ -n \"$c\" ] && printf %s \"$c\" | wl-copy && notify-send 'Color picked' \"$c\""
+    ];
+
     # spawn
     "Mod+Return".action.spawn = "footclient";
     "Mod+Space".action.spawn = "fuzzel";

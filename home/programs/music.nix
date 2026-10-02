@@ -30,12 +30,18 @@ in
 
   xdg.configFile."rmpc/config.ron".source = ./rmpc.ron;
 
+  services.mpd-discord-rpc = {
+    enable = true;
+    settings.hosts = [ "127.0.0.1:6600" ];
+  };
+
   services.mpd = {
     enable = true;
     musicDirectory = config.xdg.userDirs.music;
     network.listenAddress = mpdSocket;
     extraConfig = ''
       auto_update "yes"
+      bind_to_address "127.0.0.1"
 
       audio_output {
         type "pipewire"

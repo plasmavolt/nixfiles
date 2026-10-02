@@ -88,6 +88,10 @@
         background-effect.blur = true;
       }
       {
+        matches = [ { app-id = "^org\\.qutebrowser\\.qutebrowser$"; } ];
+        background-effect.blur = false;
+      }
+      {
         matches = [ { app-id = "^yazi-file-chooser$"; } ];
         open-floating = true;
         background-effect.blur = true;

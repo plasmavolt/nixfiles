@@ -3,7 +3,7 @@
 // @namespace   qutebrowser
 // @match       https://wikipedia.org/*
 // @match       https://*.wikipedia.org/*
-// @run-at      document-end
+// @run-at      document-start
 // ==/UserScript==
 
 GM_addStyle(String.raw`
@@ -15,7 +15,6 @@ GM_addStyle(String.raw`
     --rice-muted: #@base04@;
     --rice-fg: #@base05@;
     --rice-bright: #@base06@;
-    --rice-red: #@base08@;
     --rice-yellow: #@base0A@;
     --rice-aqua: #@base0C@;
     --rice-accent: #@base0D@;

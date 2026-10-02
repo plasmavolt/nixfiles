@@ -6,7 +6,6 @@
     <style>
       :root {
         --bg: #@base00@;
-        --muted: #@base04@;
         --fg: #@base05@;
         --accent: #@base0D@;
         --mono: "@mono@", monospace;
@@ -44,23 +43,14 @@
         letter-spacing: 0.08em;
         text-transform: lowercase;
       }
-
-      #quote {
-        max-width: 32rem;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
     </style>
   </head>
 
   <body>
     <div id="clock">--:--</div>
     <div id="date"></div>
-    <div id="quote" hidden></div>
 
     <script>
-      const quotes = @quotes@;
-      let quoteIndex = 0;
       const pad = (n) => String(n).padStart(2, "0");
       const tick = () => {
         const d = new Date();
@@ -74,18 +64,9 @@
           })
           .toLowerCase();
       };
-      const rotateQuote = () => {
-        if (quotes.length === 0) return;
-        const quote = document.getElementById("quote");
-        quote.textContent = quotes[quoteIndex];
-        quote.hidden = false;
-        quoteIndex = (quoteIndex + 1) % quotes.length;
-      };
 
       tick();
-      rotateQuote();
       setInterval(tick, 1000);
-      setInterval(rotateQuote, 15_000);
     </script>
   </body>
 </html>
