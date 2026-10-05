@@ -63,6 +63,24 @@ let
       base0D
       ;
   };
+
+  googleRice = pkgs.replaceVars ./files/google.user.js {
+    inherit (colors)
+      base00
+      base01
+      base02
+      base03
+      base04
+      base05
+      base06
+      base08
+      base0A
+      base0B
+      base0C
+      base0D
+      ;
+    mono = monospace.name;
+  };
 in
 {
   programs.qutebrowser = {
@@ -70,7 +88,7 @@ in
     settings = {
       scrolling.smooth = true;
 
-      # stylix uses sansSerif + 12pt; statusbar inherits these
+      # stylix uses sansSerif + 12pt
       fonts.default_family = lib.mkForce monospace.name;
       fonts.default_size = lib.mkForce "11pt";
       fonts.hints = "10pt ${monospace.name}";
@@ -110,21 +128,24 @@ in
       colors.completion.item.selected.border.top = lib.mkForce accent;
       colors.completion.item.selected.border.bottom = lib.mkForce accent;
 
-      # hints float over the page, so alpha is meaningful here (D6 = 84%)
+      # hints float over page
       colors.hints.bg = lib.mkForce "#D6${base00}";
 
       # start page
       url.start_pages = [ "file://${startPage}" ];
       url.default_page = "file://${startPage}";
 
-      # chrome (window.transparent left off: niri blur under every
-      # browser window made tabs-as-windows sluggish)
+      # chrome
       downloads.position = "bottom";
       window.title_format = "{perc}{current_title}";
       window.hide_decoration = true;
     };
 
-    # dict-valued settings: HM's `settings` would flatten these into dotted keys
+    # default search engine
+    searchEngines = {
+      DEFAULT = "https://www.google.com/search?q={}";
+    };
+
     extraConfig = ''
       c.statusbar.padding = {"top": 4, "bottom": 4, "left": 8, "right": 8}
       c.hints.padding = {"top": 2, "bottom": 2, "left": 4, "right": 4}
@@ -135,4 +156,5 @@ in
 
   xdg.dataFile."qutebrowser/greasemonkey/wikipedia.user.js".source = wikipediaRice;
   xdg.dataFile."qutebrowser/greasemonkey/zetamac.user.js".source = zetamacRice;
+  xdg.dataFile."qutebrowser/greasemonkey/google.user.js".source = googleRice;
 }

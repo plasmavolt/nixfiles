@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  hostname,
+  ...
+}:
 
 let
   inherit (config.lib.stylix.colors)
@@ -9,6 +14,15 @@ let
     base0D
     ;
   font = config.stylix.fonts.monospace.name;
+  coreutils = "${pkgs.coreutils}/bin";
+
+  # seconds of idle before locking
+  lockTimeout = if hostname == "framework" then 120 else 600;
+
+  # only start hyprlock if it isn't already running
+  lock = pkgs.writeShellScript "lock" ''
+    ${pkgs.procps}/bin/pgrep -x hyprlock >/dev/null || exec ${pkgs.hyprlock}/bin/hyprlock
+  '';
 in
 {
   stylix.targets.hyprlock.enable = false;
@@ -64,7 +78,7 @@ in
       label = [
         {
           monitor = "";
-          text = "cmd[update:1000] date '+%H:%M'";
+          text = "cmd[update:1000] ${coreutils}/date '+%H:%M'";
           color = "rgb(${base05})";
           font_size = 48;
           font_family = font;
@@ -74,7 +88,7 @@ in
         }
         {
           monitor = "";
-          text = "cmd[update:60000] date '+%a, %b %d' | tr '[:upper:]' '[:lower:]'";
+          text = "cmd[update:60000] ${coreutils}/date '+%a, %b %d' | ${coreutils}/tr '[:upper:]' '[:lower:]'";
           color = "rgb(${base0D})";
           font_size = 16;
           font_family = font;
@@ -90,16 +104,16 @@ in
   services.swayidle = {
     enable = true;
     events = {
-      before-sleep = "${pkgs.hyprlock}/bin/hyprlock";
-      lock = "${pkgs.hyprlock}/bin/hyprlock";
+      before-sleep = "${lock}";
+      lock = "${lock}";
     };
     timeouts = [
       {
-        timeout = 300;
-        command = "${pkgs.hyprlock}/bin/hyprlock";
+        timeout = lockTimeout;
+        command = "${lock}";
       }
       {
-        timeout = 600;
+        timeout = lockTimeout + 300;
         command = "niri msg action power-off-monitors";
         resumeCommand = "niri msg action power-on-monitors";
       }
@@ -109,7 +123,7 @@ in
   programs.niri.settings.binds = {
     "Mod+Escape" = {
       allow-when-locked = true;
-      action.spawn = "${pkgs.hyprlock}/bin/hyprlock";
+      action.spawn = "${lock}";
     };
   };
 }

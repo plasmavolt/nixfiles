@@ -6,7 +6,21 @@
 // @run-at      document-start
 // ==/UserScript==
 
-GM_addStyle(String.raw`
+function riceAddStyle(css) {
+  const add = () => {
+    const style = document.createElement("style");
+    style.textContent = css;
+    (document.head || document.documentElement || document.body).appendChild(style);
+  };
+
+  if (document.head || document.documentElement || document.body) {
+    add();
+  } else {
+    document.addEventListener("DOMContentLoaded", add, { once: true });
+  }
+}
+
+riceAddStyle(String.raw`
   :root {
     --rice-bg: #@base00@;
     --rice-bg-alt: #@base01@;
