@@ -139,7 +139,11 @@ in
   programs.pi.coding-agent = {
     enable = true;
     environment.PI_CODING_AGENT_DIR.value = "${config.home.homeDirectory}/.pi/agent";
-    settings.theme = "stylix";
+    settings = {
+      theme = "stylix";
+      defaultProvider = "anthropic";
+      defaultModel = "claude-opus-5-5";
+    };
   };
 
   home.packages = [ lazypi ];

@@ -85,6 +85,7 @@ in
 {
   programs.qutebrowser = {
     enable = true;
+    package = pkgs.qutebrowser.override { enableWideVine = true; };
     settings = {
       scrolling.smooth = true;
 
