@@ -1,6 +1,20 @@
 { lib, pkgs, ... }:
 
 {
+  xdg.configFile."yazi/theme.toml".text = ''
+    [icon]
+    prepend_dirs = [
+      { name = "desktop", text = "\uF108", fg = "#00bcd4" },
+      { name = "docs", text = "\uF401", fg = "#00bcd4" },
+      { name = "downloads", text = "\uF498", fg = "#00bcd4" },
+      { name = "music", text = "\uF025", fg = "#00bcd4" },
+      { name = "pics", text = "\uE244", fg = "#00bcd4" },
+      { name = "projects", text = "\uE70C", fg = "#00bcd4" },
+      { name = "public", text = "\uF42B", fg = "#00bcd4" },
+      { name = "vids", text = "\uF447", fg = "#00bcd4" },
+    ]
+  '';
+
   home.packages = with pkgs; [
     git
     curl
@@ -30,7 +44,9 @@
     ocaml
     ocamlPackages.ocaml-lsp
     ocamlPackages.ocamlformat
-    texlive.combined.scheme-medium
+    typst
+    tinymist
+    typstyle
   ];
 
   home.sessionVariables = {

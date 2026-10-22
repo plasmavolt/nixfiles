@@ -19,9 +19,21 @@ let
   # seconds of idle before locking
   lockTimeout = if hostname == "framework" then 120 else 600;
 
-  # only start hyprlock if it isn't already running
+  niri = "${config.programs.niri.package}/bin/niri";
+
+  # only start hyprlock if it isn't already running. it's spawned through niri
+  # so this script returns immediately: swayidle runs with -w and blocks on its
+  # commands, so running hyprlock directly would freeze swayidle while locked
+  # and replay queued idle events (relocking) after unlock
   lock = pkgs.writeShellScript "lock" ''
-    ${pkgs.procps}/bin/pgrep -x hyprlock >/dev/null || exec ${pkgs.hyprlock}/bin/hyprlock
+    ${pkgs.procps}/bin/pgrep -x hyprlock >/dev/null && exit 0
+    ${niri} msg action spawn -- ${pkgs.hyprlock}/bin/hyprlock
+  '';
+
+  # give hyprlock a moment to grab the session lock before suspending
+  lockBeforeSleep = pkgs.writeShellScript "lock-before-sleep" ''
+    ${lock}
+    ${coreutils}/sleep 1
   '';
 in
 {
@@ -58,7 +70,6 @@ in
           check_color = "rgba(${base0D}ff)";
           fail_color = "rgba(${base08}ff)";
           fail_text = "incorrect";
-          fail_transition = 150;
           font_color = "rgb(${base05})";
           font_family = font;
           placeholder_text = "password";
@@ -104,7 +115,7 @@ in
   services.swayidle = {
     enable = true;
     events = {
-      before-sleep = "${lock}";
+      before-sleep = "${lockBeforeSleep}";
       lock = "${lock}";
     };
     timeouts = [
@@ -114,8 +125,8 @@ in
       }
       {
         timeout = lockTimeout + 300;
-        command = "niri msg action power-off-monitors";
-        resumeCommand = "niri msg action power-on-monitors";
+        command = "${niri} msg action power-off-monitors";
+        resumeCommand = "${niri} msg action power-on-monitors";
       }
     ];
   };

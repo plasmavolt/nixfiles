@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pi = {
-      url = "github:lukasl-dev/pi.nix/v1.3.0";
+      url = "github:lukasl-dev/pi.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     osu-lazer.url = "github:repinek/osu-lazer-flake";

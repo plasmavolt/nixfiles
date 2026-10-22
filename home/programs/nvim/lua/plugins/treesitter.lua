@@ -20,7 +20,7 @@ return {
       -- docs
       'markdown',
       'markdown_inline',
-      'latex',
+      'typst',
       'html',
       'lua',
       'luadoc',

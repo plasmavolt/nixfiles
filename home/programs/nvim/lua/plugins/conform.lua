@@ -32,6 +32,10 @@ return {
       json = { 'prettier' },
       yaml = { 'prettier' },
       markdown = { 'prettier' },
+      typst = { 'typstyle' },
+    },
+    formatters = {
+      typstyle = { prepend_args = { '--line-width', '80' } },
     },
   },
 }

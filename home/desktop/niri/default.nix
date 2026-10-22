@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   hostname,
@@ -15,6 +16,8 @@
 
   programs.niri.settings = {
     prefer-no-csd = true; # no title bars
+
+    screenshot-path = "${config.xdg.userDirs.pictures}/screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png";
 
     cursor = {
       theme = "Bibata-Modern-Classic";

@@ -119,6 +119,12 @@ return {
         clangd = {},
         -- ocaml
         ocamllsp = {},
+        -- typst
+        tinymist = {
+          settings = {
+            exportPdf = 'onType',
+          },
+        },
       }
 
       for name, opts in pairs(servers) do

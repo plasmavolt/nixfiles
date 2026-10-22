@@ -13,4 +13,11 @@
 
   # firmware updates (fwupdmgr refresh && fwupdmgr update)
   services.fwupd.enable = true;
+
+  # third-party apps (flatpaks, AppImages)
+  services.flatpak.enable = true;
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }
