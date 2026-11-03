@@ -49,6 +49,7 @@
     ripgrep
     fd
     jq
+    poppler-utils
     bat
     fzf
     eza

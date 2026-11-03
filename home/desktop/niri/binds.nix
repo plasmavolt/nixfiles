@@ -41,6 +41,8 @@
     "Mod+I".action.focus-workspace-up = { };
     "Mod+Shift+U".action.move-column-to-workspace-down = { };
     "Mod+Shift+I".action.move-column-to-workspace-up = { };
+    "Mod+Ctrl+Shift+U".action.move-workspace-down = { };
+    "Mod+Ctrl+Shift+I".action.move-workspace-up = { };
 
     "Mod+1".action.focus-workspace = 1;
     "Mod+2".action.focus-workspace = 2;

@@ -57,7 +57,11 @@
     libnotify
     pavucontrol
     bluetui
+    google-chrome
   ];
+
+  # mounting (used by udiskie)
+  services.udisks2.enable = true;
 
   # udev rules for brightnessctl
   services.udev.packages = [ pkgs.brightnessctl ];

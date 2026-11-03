@@ -37,6 +37,14 @@ in
     ./wallpaper.nix
   ];
 
+  # automount
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
+    tray = "never";
+  };
+
   xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
     [filechooser]
     cmd=${yaziFileChooser}

@@ -44,6 +44,7 @@
     ocaml
     ocamlPackages.ocaml-lsp
     ocamlPackages.ocamlformat
+    ocamlPackages.menhir
     typst
     tinymist
     typstyle
