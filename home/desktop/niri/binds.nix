@@ -36,6 +36,14 @@
     "Mod+Shift+V".action.toggle-window-floating = { };
     "Mod+V".action.switch-focus-between-floating-and-tiling = { };
 
+    # monitor
+    "Mod+Ctrl+H".action.focus-monitor-left = { };
+    "Mod+Ctrl+L".action.focus-monitor-right = { };
+    "Mod+Ctrl+K".action.focus-monitor-up = { };
+    "Mod+Ctrl+J".action.focus-monitor-down = { };
+    "Mod+Ctrl+Shift+H".action.move-column-to-monitor-left = { };
+    "Mod+Ctrl+Shift+L".action.move-column-to-monitor-right = { };
+
     # workspace
     "Mod+U".action.focus-workspace-down = { };
     "Mod+I".action.focus-workspace-up = { };
