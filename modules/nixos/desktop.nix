@@ -2,6 +2,10 @@
 
 {
   hardware.graphics.enable = true;
+  hardware.bluetooth.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+  security.pam.services.hyprlock = { };
 
   # wm (niri)
   programs.niri.enable = true;

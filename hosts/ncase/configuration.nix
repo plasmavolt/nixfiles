@@ -1,26 +1,33 @@
-{
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 {
-  # bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel
+  imports = [
+    ./hardware-configuration.nix
+    ./nvidia.nix
+  ];
 
-  # networking
-  networking.hostName = "ncase"; # define hostname
-  networking.networkmanager.enable = true; # configure network w/ nmtui
+  networking.hostName = "ncase";
+  boot.kernelPackages = pkgs.linuxPackages;
+  swapDevices = lib.mkForce [ ]; # no disk swap
 
-  # bluetooth
-  hardware.bluetooth.enable = true;
+  home-manager.users.frank.programs.niri.settings.outputs."DP-6" = {
+    mode = {
+      width = 2560;
+      height = 1440;
+      refresh = 164.999;
+    };
+    scale = 1.2;
+  };
 
-  security.pam.services.hyprlock = { };
+  # firmware updates (fwupdmgr refresh && fwupdmgr update)
+  services.fwupd.enable = true;
 
-  # power
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
+  # third-party apps (flatpaks, AppImages)
+  services.flatpak.enable = true;
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   system.stateVersion = "26.05"; # DO NOT CHANGE
 }

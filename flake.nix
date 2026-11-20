@@ -25,24 +25,32 @@
 
   outputs =
     {
-      self,
       nixpkgs,
+      home-manager,
+      niri,
+      stylix,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-      frankLib = import ./lib { inherit inputs; };
+      mkHost =
+        hostModule:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            hostModule
+            ./modules/nixos
+            niri.nixosModules.niri
+            stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+          ];
+        };
     in
     {
       nixosConfigurations = {
-        framework = frankLib.mkHost {
-          hostname = "framework";
-          system = system;
-        };
-        ncase = frankLib.mkHost {
-          hostname = "ncase";
-          system = system;
-        };
+        framework = mkHost ./hosts/framework/configuration.nix;
+        ncase = mkHost ./hosts/ncase/configuration.nix;
       };
       apps.${system}.osu-lazer = {
         type = "app";
@@ -50,5 +58,4 @@
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
     };
-
 }

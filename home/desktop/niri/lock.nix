@@ -1,7 +1,7 @@
 {
   config,
+  lib,
   pkgs,
-  hostname,
   ...
 }:
 
@@ -16,10 +16,12 @@ let
   font = config.stylix.fonts.monospace.name;
   coreutils = "${pkgs.coreutils}/bin";
 
-  # seconds of idle before locking
-  lockTimeout = if hostname == "framework" then 120 else 600;
+  inherit (config.local.desktop) lockTimeout;
 
   niri = "${config.programs.niri.package}/bin/niri";
+
+  # below are llm-generated fixes for some hyprlock bugs i was encountering.
+  # didn't really feel like debugging this :/
 
   # only start hyprlock if it isn't already running. it's spawned through niri
   # so this script returns immediately: swayidle runs with -w and blocks on its
@@ -37,104 +39,112 @@ let
   '';
 in
 {
-  stylix.targets.hyprlock.enable = false;
+  options.local.desktop.lockTimeout = lib.mkOption {
+    type = lib.types.ints.positive;
+    default = 600;
+    description = "Number of seconds idle before locking Niri session.";
+  };
 
-  programs.hyprlock = {
-    enable = true;
-    settings = {
-      general = {
-        hide_cursor = true;
-        ignore_empty_input = true;
+  config = {
+    stylix.targets.hyprlock.enable = false;
+
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          hide_cursor = true;
+          ignore_empty_input = true;
+        };
+
+        animations.enabled = false;
+
+        background = [
+          {
+            monitor = "";
+            path = "${config.xdg.stateHome}/waypaper/current-wallpaper";
+            blur_passes = 3;
+            blur_size = 8;
+            brightness = 0.32;
+            color = "rgba(${base00}aa)";
+          }
+        ];
+
+        input-field = [
+          {
+            monitor = "";
+            size = "360, 54";
+            outline_thickness = 0;
+            inner_color = "rgba(${base00}66)";
+            outer_color = "rgba(${base00}00)";
+            check_color = "rgba(${base0D}ff)";
+            fail_color = "rgba(${base08}ff)";
+            fail_text = "incorrect";
+            font_color = "rgb(${base05})";
+            font_family = font;
+            placeholder_text = "password";
+            rounding = 14;
+            dots_center = true;
+            dots_size = 0.18;
+            dots_spacing = 0.18;
+            fade_on_empty = false;
+            position = "0, -76";
+            halign = "center";
+            valign = "center";
+          }
+        ];
+
+        shape = [ ];
+
+        label = [
+          {
+            monitor = "";
+            text = "cmd[update:1000] ${coreutils}/date '+%H:%M'";
+            color = "rgb(${base05})";
+            font_size = 48;
+            font_family = font;
+            position = "0, 70";
+            halign = "center";
+            valign = "center";
+          }
+          {
+            monitor = "";
+            text = "cmd[update:60000] ${coreutils}/date '+%a, %b %d' | ${coreutils}/tr '[:upper:]' '[:lower:]'";
+            color = "rgb(${base0D})";
+            font_size = 16;
+            font_family = font;
+            position = "0, 20";
+            halign = "center";
+            valign = "center";
+          }
+        ];
       };
+    };
 
-      animations.enabled = false;
-
-      background = [
+    # idle handling
+    services.swayidle = {
+      enable = true;
+      events = {
+        before-sleep = "${lockBeforeSleep}";
+        lock = "${lock}";
+      };
+      timeouts = [
         {
-          monitor = "";
-          path = "${config.xdg.stateHome}/waypaper/current-wallpaper";
-          blur_passes = 3;
-          blur_size = 8;
-          brightness = 0.32;
-          color = "rgba(${base00}aa)";
-        }
-      ];
-
-      input-field = [
-        {
-          monitor = "";
-          size = "360, 54";
-          outline_thickness = 0;
-          inner_color = "rgba(${base00}66)";
-          outer_color = "rgba(${base00}00)";
-          check_color = "rgba(${base0D}ff)";
-          fail_color = "rgba(${base08}ff)";
-          fail_text = "incorrect";
-          font_color = "rgb(${base05})";
-          font_family = font;
-          placeholder_text = "password";
-          rounding = 14;
-          dots_center = true;
-          dots_size = 0.18;
-          dots_spacing = 0.18;
-          fade_on_empty = false;
-          position = "0, -76";
-          halign = "center";
-          valign = "center";
-        }
-      ];
-
-      shape = [ ];
-
-      label = [
-        {
-          monitor = "";
-          text = "cmd[update:1000] ${coreutils}/date '+%H:%M'";
-          color = "rgb(${base05})";
-          font_size = 48;
-          font_family = font;
-          position = "0, 70";
-          halign = "center";
-          valign = "center";
+          timeout = lockTimeout;
+          command = "${lock}";
         }
         {
-          monitor = "";
-          text = "cmd[update:60000] ${coreutils}/date '+%a, %b %d' | ${coreutils}/tr '[:upper:]' '[:lower:]'";
-          color = "rgb(${base0D})";
-          font_size = 16;
-          font_family = font;
-          position = "0, 20";
-          halign = "center";
-          valign = "center";
+          timeout = lockTimeout + 300;
+          command = "${niri} msg action power-off-monitors";
+          resumeCommand = "${niri} msg action power-on-monitors";
         }
       ];
     };
-  };
 
-  # idle handling
-  services.swayidle = {
-    enable = true;
-    events = {
-      before-sleep = "${lockBeforeSleep}";
-      lock = "${lock}";
-    };
-    timeouts = [
-      {
-        timeout = lockTimeout;
-        command = "${lock}";
-      }
-      {
-        timeout = lockTimeout + 300;
-        command = "${niri} msg action power-off-monitors";
-        resumeCommand = "${niri} msg action power-on-monitors";
-      }
-    ];
-  };
-
-  programs.niri.settings.binds = {
-    "Mod+Escape" = {
-      allow-when-locked = true;
-      action.spawn = "${lock}";
+    programs.niri.settings.binds = {
+      "Mod+Escape" = {
+        allow-when-locked = true;
+        action.spawn = "${lock}";
+      };
     };
   };
 }

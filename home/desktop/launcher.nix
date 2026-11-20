@@ -5,6 +5,8 @@ let
   opacity = lib.toHexString (builtins.ceil (config.stylix.opacity.popups * 255));
 in
 {
+  stylix.targets.rofi.enable = false; # fix for annoying evaluation-time warning
+
   programs.fuzzel = {
     enable = true;
     settings = {
