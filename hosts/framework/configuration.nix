@@ -9,6 +9,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel
 
+  hardware.framework.enableKmod = false;
+
   # networking
   networking.hostName = "framework"; # define hostname
   networking.networkmanager.enable = true; # configure network w/ nmtui
