@@ -139,7 +139,8 @@ in
       # chrome
       downloads.position = "bottom";
       window.title_format = "{perc}{current_title}";
-      window.hide_decoration = true;
+      # for whatever reason hide deco makes qutebrowser render in RGB565 soo
+      window.hide_decoration = false;
     };
 
     # default search engine
