@@ -40,6 +40,12 @@ in
   # automount
   services.udiskie = {
     enable = true;
+    # annoying ass bug: build kernel returns `EKEYREVOKED` but udiskie 2.7.0 expects `ENOKEY`
+    package = pkgs.udiskie.overridePythonAttrs (old: {
+      pytestFlags = (old.pytestFlags or [ ]) ++ [
+        "--deselect=test/test_keyutils.py::TestKeyutils::test_invalidate"
+      ];
+    });
     automount = true;
     notify = true;
     tray = "never";

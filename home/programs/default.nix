@@ -7,6 +7,7 @@
     ./terminal.nix
     ./shell.nix
     ./pi.nix
+    ./claude-code.nix
     ./music.nix
     ./lazygit.nix
     ./zellij.nix
